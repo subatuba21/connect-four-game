@@ -1,8 +1,8 @@
 {
-  "name": "tic-tac-toe",
+  "name": "connect-4",
   "version": "0.1.0",
   "bin": {
-    "tic-tac-toe": "bin/tic-tac-toe.js"
+    "connect-4": "bin/connect-4.js"
   },
   "scripts": {
     "build": "tsc",

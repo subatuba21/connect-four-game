@@ -1,5 +1,5 @@
 {
-  "app": "npx ts-node --prefer-ts-exts bin/tic-tac-toe.ts",
+  "app": "npx ts-node --prefer-ts-exts bin/connect4.ts",
   "watch": {
     "include": [
       "**"

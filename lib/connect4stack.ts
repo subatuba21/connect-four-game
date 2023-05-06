@@ -7,7 +7,7 @@ import { CfnOutput } from 'aws-cdk-lib';
 
 // import * as sqs from 'aws-cdk-lib/aws-sqs';
 
-export class TicTacToeStack extends cdk.Stack {
+export class Connect4Stack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
