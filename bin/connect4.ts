@@ -1,10 +1,11 @@
 #!/usr/bin/env node
 import 'source-map-support/register';
 import * as cdk from 'aws-cdk-lib';
-import { Connect4Stack } from '../lib/connect4stack';
+import { BackendStack } from '../lib/backendstack';
+import { FrontendStack } from '../lib/frontendstack';
 
 const app = new cdk.App();
-new Connect4Stack(app, 'Connect4Stack', {
+new BackendStack(app, 'BackendStack', {
   /* If you don't specify 'env', this stack will be environment-agnostic.
    * Account/Region-dependent features and context lookups will not work,
    * but a single synthesized template can be deployed anywhere. */
@@ -18,4 +19,8 @@ new Connect4Stack(app, 'Connect4Stack', {
   // env: { account: '123456789012', region: 'us-east-1' },
 
   /* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
+});
+
+new FrontendStack(app, 'FrontendStack', {
+
 });
