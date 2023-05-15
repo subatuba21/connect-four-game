@@ -8,7 +8,7 @@ import * as S3Deployment from "aws-cdk-lib/aws-s3-deployment";
 import { CfnOutput } from "aws-cdk-lib";
 
 
-const FRONT_END_PATH = "frontend/dist/frontend";
+const FRONT_END_PATH = "frontend/dist";
 
 
 export class FrontendStack extends cdk.Stack {
