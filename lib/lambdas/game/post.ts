@@ -1,13 +1,46 @@
-import { Handler, APIGatewayEvent } from "aws-lambda";
-import { DynamoDB } from "aws-sdk";
+import { Handler, APIGatewayEvent, APIGatewayProxyResult, APIGatewayProxyEvent } from "aws-lambda";
+import { DynamoDB, APIGateway } from "aws-sdk";
+import {} from 'zod';
 import * as uuid from "uuid";
-import { isPlayerNotComputer, status } from "../../utils/game";
+import { computerType, isPlayerNotComputer, status } from "../../utils/game";
+import { computerPlayerSchema, playerIdSchema } from "../types";
 
-export const handler: Handler = async (event: APIGatewayEvent, context) => {
+export const handler: Handler = async (event: APIGatewayProxyEvent, context) : Promise<APIGatewayProxyResult>=> {
   const db = new DynamoDB();
   const body = JSON.parse(event?.body as string);
-  const player1 = body.player1;
-  const player2 = body.player2;
+  let player1 : string;
+  let player2 : string;
+
+  try {
+    player1 = playerIdSchema.parse(body.player1);
+  } catch (err) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error: err
+      }),
+      headers: {
+        "content-type": "application/json"
+      },
+      isBase64Encoded: false
+    }
+  }
+
+  try {
+    player2 = playerIdSchema.or(computerPlayerSchema).parse(body.player2);
+  } catch (err) {
+    return {
+      statusCode: 400,
+      body: JSON.stringify({
+        error: err
+      }),
+      headers: {
+        "content-type": "application/json"
+      },
+      isBase64Encoded: false
+    }
+  }
+  
   const randomID = uuid.v4();
 
   const items : any = [
@@ -126,6 +159,12 @@ export const handler: Handler = async (event: APIGatewayEvent, context) => {
 
   return {
     statusCode: 200,
-    body: "New game created.",
+    headers: {
+      'content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      message: 'Game successfully created',
+      gameId: `GAME#${randomID}`
+    })
   };
 };

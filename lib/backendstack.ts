@@ -6,6 +6,7 @@ import * as cognito from "aws-cdk-lib/aws-cognito";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import lambdaInfo from "./lambdas/info";
 import { API_NAME, APP_TABLE, TABLE_PARTITION_KEY, TABLE_SORT_KEY, USER_POOL_NAME, API_DESCRIPTION, USER_POOL_CLIENT_NAME } from "./utils/constants";
+import { LambdaMethod } from "./utils/types";
 
 export class BackendStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -49,16 +50,25 @@ export class BackendStack extends cdk.Stack {
     });
 
     const gameResource = api.root.addResource('game');
-    const post_game = new NodejsFunction(this, lambdaInfo.game.post.name, {
-      entry: lambdaInfo.game.post.path,
-      environment: {
-        tableName: APP_TABLE
-      }
-    })
+    const gameResourceWithId = gameResource.addResource('{id}');
+    const post_game_info = lambdaInfo.game.post as LambdaMethod;
+    const post_game = new NodejsFunction(this, post_game_info.name, {
+      entry: post_game_info.path,
+      environment: post_game_info.environment(APP_TABLE)
+    });
     gameResource.addMethod('POST', new apigateway.LambdaIntegration(post_game), {
       authorizationType: apigateway.AuthorizationType.NONE,
     });
 
     appTable.grantWriteData(post_game);
+
+    const get_game_info = lambdaInfo.game.get as LambdaMethod;
+    const get_game = new NodejsFunction(this, get_game_info.name, {
+      entry: get_game_info.path,
+      environment: get_game_info.environment(APP_TABLE)
+    });
+    gameResourceWithId.addMethod('GET', new apigateway.LambdaIntegration(get_game), {
+      authorizationType: apigateway.AuthorizationType.NONE,
+    });
   }
 }
