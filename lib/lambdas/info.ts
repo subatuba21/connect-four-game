@@ -21,6 +21,15 @@ const lambdas : LamdaInfo = {
                     tableName,
                 }
             }
+        },
+        put: {
+            path: join(__dirname, "game", "put.ts"),
+            name: "put_game",
+            environment: (tableName) => {
+                return {
+                    tableName,
+                }
+            }
         }
     }
 }

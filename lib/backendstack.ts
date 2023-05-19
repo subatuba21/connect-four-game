@@ -70,5 +70,18 @@ export class BackendStack extends cdk.Stack {
     gameResourceWithId.addMethod('GET', new apigateway.LambdaIntegration(get_game), {
       authorizationType: apigateway.AuthorizationType.NONE,
     });
+
+    appTable.grantReadData(get_game);
+
+    const put_game_info = lambdaInfo.game.put as LambdaMethod;
+    const put_game = new NodejsFunction(this, put_game_info.name, {
+      entry: put_game_info.path,
+      environment: put_game_info.environment(APP_TABLE)
+    });
+    gameResourceWithId.addMethod('PUT', new apigateway.LambdaIntegration(put_game), {
+      authorizationType: apigateway.AuthorizationType.NONE,
+    });
+
+    appTable.grantReadWriteData(put_game);
   }
 }
