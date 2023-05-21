@@ -4,7 +4,7 @@ import * as apigateway from "aws-cdk-lib/aws-apigateway";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
 import * as cognito from "aws-cdk-lib/aws-cognito";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
-import lambdaInfo from "./lambdas/info";
+import lambdaInfo from "./lambdas/api-info";
 import { API_NAME, APP_TABLE, TABLE_PARTITION_KEY, TABLE_SORT_KEY, USER_POOL_NAME, API_DESCRIPTION, USER_POOL_CLIENT_NAME } from "./utils/constants";
 import { LambdaMethod } from "./utils/types";
 

@@ -2,8 +2,8 @@ import { Handler, APIGatewayEvent, APIGatewayProxyResult, APIGatewayProxyEvent }
 import { DynamoDB, APIGateway } from "aws-sdk";
 import {} from 'zod';
 import * as uuid from "uuid";
-import { computerType, isPlayerNotComputer, status } from "../../utils/game";
-import { computerPlayerSchema, playerIdSchema } from "../types";
+import { computerType, isPlayerNotComputer, status } from "../../../utils/game";
+import { computerPlayerSchema, playerIdSchema } from "../../types";
 
 export const handler: Handler = async (event: APIGatewayProxyEvent, context) : Promise<APIGatewayProxyResult>=> {
   const db = new DynamoDB();

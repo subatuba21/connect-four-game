@@ -5,7 +5,7 @@ import { LamdaInfo } from "../utils/types";
 const lambdas : LamdaInfo = {
     game: {
         post: {
-            path: join(__dirname, "game", "post.ts"),
+            path: join(__dirname, "api", "game", "post.ts"),
             name: "post_game",
             environment: (tableName) => {
                 return {
@@ -14,7 +14,7 @@ const lambdas : LamdaInfo = {
             }
         },
         get: {
-            path: join(__dirname, "game", "get.ts"),
+            path: join(__dirname, "api", "game", "get.ts"),
             name: "get_game",
             environment: (tableName) => {
                 return {
@@ -23,7 +23,7 @@ const lambdas : LamdaInfo = {
             }
         },
         put: {
-            path: join(__dirname, "game", "put.ts"),
+            path: join(__dirname, "api", "game", "put.ts"),
             name: "put_game",
             environment: (tableName) => {
                 return {

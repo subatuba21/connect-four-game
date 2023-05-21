@@ -1,6 +1,6 @@
 import { APIGatewayProxyEvent, Handler } from "aws-lambda";
 import { DynamoDB } from "aws-sdk";
-import { gameIdSchema } from "../types";
+import { gameIdSchema } from "../../types";
 import * as z from "zod";
 
 export const handler: Handler = async (event: APIGatewayProxyEvent) => {

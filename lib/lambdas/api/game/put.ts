@@ -2,7 +2,7 @@ import { APIGatewayProxyEvent, APIGatewayProxyResult, Handler } from "aws-lambda
 import { DynamoDB } from "aws-sdk";
 import * as z from 'zod';
 import { ZodError } from "zod";
-import { actionSchema } from "../types";
+import { actionSchema } from "../../types";
 
 export const handler : Handler = async (event: APIGatewayProxyEvent) : Promise<APIGatewayProxyResult> => {
     try {
